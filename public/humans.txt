@@ -1,0 +1,18 @@
+﻿/* TEAM */
+	Who Made It: Jean Claudette Ambait
+	Contact: jeanclaudetteambait [at] gmail.com
+	From: Manila, Philippines
+
+	Boss of Who Made It: Julius Aniceto Cebreros
+	Contact: juliuscebreros [at] gmail.com
+	Twitter: @tusongtupa
+	From: Manila, Philippines
+
+/* THANKS */
+
+
+/* SITE */
+	Last update:2012/11/14
+	Language:English
+	Doctype:HTML5
+	IDE: Sublime Text 2

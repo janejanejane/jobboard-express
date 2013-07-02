@@ -1,0 +1,36 @@
+extends ../layouts/layout
+
+block tab-header
+  li
+    a(href='/jobs') Job Posts
+  li.active
+    a(href='/users') Developers
+
+block content
+  h1 All Developers
+  .vote-status
+  .row-fluid
+    include ../shared/usearch
+    aside
+      section
+        h2 Design
+        ul.users
+          .border-dash
+          each user in users
+            li.user-preview
+              a(href='/users/#{user.id}')
+                .left.pull-left
+                  span.level LVL 0
+                  span
+                    img(src='http://dummyimage.com/800x600/4d494d/686a82.gif&text=placeholder+image" alt="placeholder+image')
+                  div
+                    span
+                      b user.name
+                    span
+                      em Coder
+                .center.pull-left user.games
+              .votes
+                span.up-btn +0
+                span
+                  i.icon-heart.up-btn
+          .border-dash

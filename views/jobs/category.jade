@@ -1,0 +1,16 @@
+extends ../layouts/layout
+
+block tab-header
+  li.active
+    a(href='/jobs') Job Posts
+  li
+    a(href='/users') Developers
+
+block content
+  h1 All Jobs
+  .show-nav
+    p: a(href='/jobs') &lsaquo;&lsaquo; Back to all jobs
+  .row-fluid
+    .span8
+      aside
+        section

@@ -1,0 +1,25 @@
+- var fb_link = function(appId, name, caption, description){
+-   var thisName = encodeURIComponent(name);
+-   var thisCaption = encodeURIComponent('at ' + caption);
+-   var thisDesc = encodeURIComponent(description);
+-   var img = host + '/images/igda-header-logo.jpg';
+-   var fbshare = 'https://www.facebook.com/dialog/feed?';
+-   fbshare += 'app_id=' + appId + '&';
+-   fbshare += 'link=https://developers.facebook.com/docs/reference/dialogs/&';
+-   fbshare += 'picture='+ img +'&';
+-   fbshare += 'name='+ thisName + '&';
+-   fbshare += 'caption='+ thisCaption +'&';
+-   fbshare += 'description='+ thisDesc+'&';
+-   fbshare += 'redirect_uri='+ facebookUri;
+
+-   return fbshare;
+- };
+
+.share-tools
+  ul
+    email_subject = encodeURIComponent(job.company_name + ' is hiring a ' + job.jobtitle)
+    email_body = encodeURIComponent('Hey! I would like to share this job post at ' + jobpath)
+    li: a(href='mailto:?subject=#{email_subject}&body=#{email_body}')#mail Tell a friend
+    li: a(href='http://twitter.com/home?status=#{job.company_name} is hiring a #{job.jobtitle} at #{jobpath}')#twitter Tweet this job
+    li: a(href='#{fb_link(facebookKey, job.jobtitle, job.company_name, job.description)}')#facebook Share this job
+    li: a(href='https://plus.google.com/share?url=#{jobpath}')#gplus +1 this job

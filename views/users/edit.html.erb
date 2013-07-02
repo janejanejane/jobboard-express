@@ -1,0 +1,147 @@
+<% provide(:title, 'Edit profile') %>
+<h1>Edit profile</h1>
+<div class="points-status"></div>
+
+<% content_for :tab_header do %>
+  <li><%= link_to "Job Posts", jobs_path %></li>
+  <li><%= link_to "Developers", users_path %></li>
+<% end %>
+
+<div class="row-fluid">
+	<aside class="span9">
+		<section>
+			<%= form_for(@user) do |f| %>
+				<%= render 'shared/error_messages', object: f.object%>
+				<table>
+					<tbody>
+						<tr>
+							<td>
+								<label>Photo</label>
+							</td>
+							<td>
+								<img src="<%= "#{@user.image}" %>" >
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<%= f.label :nickname %>
+							</td>
+							<td>
+								<%= f.text_field :nickname %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<%= f.label :first_name %>
+							</td>
+							<td>
+								<%= f.text_field :first_name %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				        <%= f.label :last_name %>
+			        </td>
+							<td>
+								<%= f.text_field :last_name %>
+						  </td>
+						</tr>
+						<tr>
+							<td>
+				        <%= f.label :personal_statement %>
+			        </td>
+							<td>
+					      <%= f.text_area :personal_statement %>
+					    </td>
+						</tr>
+						<tr>
+							<td>
+				        <%= f.label :location %>
+			        </td>
+							<td>
+					      <%= f.text_field :location %>
+					    </td>
+						</tr>
+						<tr>
+							<td>
+				        <%= f.label :job_preference %>
+			        </td>
+							<td>
+								<table>
+									<tr class="info">
+										<td>Remaining Points</td>
+										<td id="remaining"><%= @user.remaining_pnts %></td>
+									</tr>
+				        <% CATEGORY.each_with_index do |choice, index| 
+				        	option = false
+									if(!@job_preference.empty?)
+										if(@job_preference.index{|d| d == index.to_s}) # checks if index is not nil
+							    		option = true
+						    		end
+					    		end %>
+					    		<tr>
+					    			<td>
+						    			<label class="checkbox">
+						        	<%= f.check_box :job_preference, { :multiple => true, :checked => option, :class => 'checkbox' }, index, nil%><%= choice %>
+						        	</label>
+					        	</td>
+					        	<td>
+					        		<span id="<%="#{current_user.id}"%>-<%="#{index}"%>">
+					        		<% if(!@job_pref_pnts.empty?) %>
+					        			<%= @job_pref_pnts[index] %>
+					        		<% else %>
+					        			0
+					        		<% end %>
+					        		</span>
+					        	</td>
+					        	<td>
+					        		<%# link_to(plus_user_path(jobpref: index), method: "post", class: "icon-link") do %>
+					        			<a href="#" class="vote-link" data-point='{"user_id": "<%="#{current_user.id}"%>", "jobpref": "<%="#{index}"%>"}'>
+					        				<i class="icon-plus"></i>
+					        			</a>
+					        		<%# end %>
+					        	</td>
+					        	<td>
+					        		<%# link_to(minus_user_path(jobpref: index), method: "post", class: "icon-link") do %>
+					        			<a href="#" class="vote-link" data-point='{"user_id": "<%="#{current_user.id}"%>", "jobpref": "<%="#{index}"%>"}'>
+					        				<i class="icon-minus"></i>
+					        			</a>
+					        		<%# end %>
+					        	</td>
+					    		</tr>
+				        <% end %>
+				        </table>
+					    </td>
+						</tr>
+						<tr>
+							<td>
+				        <%= f.label :availability %>
+			        </td>
+							<td>
+				        <% AVAILABILITY.each_with_index do |choice, index| %>
+				        	<% if index == 0 %>
+				        		<label class="radio"><%= f.radio_button :availability, index, checked: true %><%= choice %></label>
+				        	<% else %>
+				        		<label class="radio"><%= f.radio_button :availability, index %><%= choice %></label>
+				        	<% end %>
+				        <% end %>
+					    </td>
+						</tr>
+					</tbody>
+				</table>
+		    <div class="form-actions">
+		    	<%= f.submit "Update Profile", class: "btn btn-large btn-primary" %>
+		    	<%= submit_tag "Cancel", class: "btn btn-large" %>
+		    </div>
+		    <% end %>
+	   </section>
+	</aside>	
+	<aside class="span3">
+		<%= link_to "Extra", user_extras_path(@user), class: "btn btn-large btn-primary" %>
+		<%= link_to "Games", user_games_path(@user), class: "btn btn-large btn-primary" %>
+	</aside>
+</div>
+
+<% content_for :javascripts do %>
+  <%= javascript_include_tag 'changepoints' %>  
+<% end %>

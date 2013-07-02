@@ -1,0 +1,36 @@
+extends ../layouts/layout
+
+block tab-header
+  li.active
+    a(href='/jobs') Job Posts
+  li
+    a(href='/users') Developers
+
+block content
+  h1 All Jobs
+  .row-fluid
+    aside.span9
+      section 
+        if ((typeof(categories) !== 'undefined') && Object.keys(categories).length > 0)
+          each jobs, i in categories
+            totalJobs = Object.keys(jobs).length
+            if (totalJobs > 0)
+              h2 #{categoriesList[i]}
+              counter = 0
+              each job in jobs
+                ul.jobs
+                  if counter < numberLimit
+                    li: a(href='/jobs/'+ job._id) 
+                      span.location #{job.location}
+                      span.jobtitle #{job.jobtitle}
+                      span.company #{job.company_name}
+                      span.date #{job.created_at.toDateString()}
+                  - counter++
+              br
+              if totalJobs > numberLimit
+                a(href='/jobs/'+ '#{categoriesList[i]}') View all #{totalJobs} jobs &rsaquo;&rsaquo;
+        else
+          h2 No Job Posts. Add one now &rsaquo;&rsaquo;
+    aside.span3
+      a(href='/jobs/new').btn.btn-large.btn-primary Add job now!
+      h6 Jobs that are more than 30 days are automatically deleted by the system. Please email contact@igdamanila.org if you want to remove an ad.

@@ -1,0 +1,58 @@
+mixin inputField(label, name, tag, description)
+  .control-group
+    label.control-label #{label}
+    .controls
+      #{tag}(type='text', name=name)
+      if description!= null
+        span.desc #{description}
+
+extends ../layouts/layout
+
+block tab-header
+  li
+    a(href='/jobs') Job Posts
+  li
+    a(href='/users') Developers
+
+block content
+  h1 Add Job
+  .row-fluid
+    .span9
+      form(method="POST", action="/jobs/new/preview").form-horizontal
+        mixin inputField('Job Title', 'jobtitle', 'input', '"Rails Programmer" or "Flash Game Developer"')
+        .control-group
+          label.control-label Category
+          .controls
+            each category, i in categoriesList
+              label.radio #{category}
+                if i === 0
+                  input(type='radio', name='category', value='#{i}', checked='true') 
+                else
+                  input(type='radio', name='category', value='#{i}')
+        mixin inputField('Location', 'location', 'input', '"Manila", "Pasig", "QC", or "Anywhere"')
+        mixin inputField('Description', 'description', 'textarea', null)
+        mixin inputField('Apply Details', 'applydetails', 'textarea', 'How do people apply for this job? Example: Send resume to jane@company.com')
+        mixin inputField('Company Name', 'companyname', 'input', 'Enter you company or organization\'s name.')
+        mixin inputField('Company Website', 'companywebsite', 'input', 'Example: http://www.google.com')
+        mixin inputField('Confirmation Email', 'confirmationemail', 'input', 'This is where we\'ll send your confirmation email.')
+        .control-group
+          label.control-label Salary
+          .controls
+            input(type='text', name='salary')
+            label.checkbox Minimum
+              input(type='checkbox', name='minimum')
+        .control-group
+          label.control-label Job Type
+          .controls
+            each availability, i in availabilitiesList
+              if i !== 2
+                label.radio #{availability}
+                  if i === 0
+                    input(type='radio', name='jobtype', value='#{i}', checked='true')  
+                  else
+                    input(type='radio', name='jobtype', value='#{i}')
+        .form-actions
+          input(type='submit', value='Preview', name='preview').btn.btn-primary.btn-large
+          input(type='button', value='Cancel', onclick='/jobs').btn.btn-large
+    .span3
+      h6 Be clear. No spamming. Be a good citizen.

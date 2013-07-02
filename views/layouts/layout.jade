@@ -1,0 +1,18 @@
+doctype 5
+html
+  head
+    title IGDA Manila Job Board | #{title}
+    link(type='text/plain', rel='author', href='humans.txt')
+    link(type='text/css', rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans:400,300')
+    link(rel='shortcut icon', href='/manila.ico')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    include shim
+  body
+    include header
+    .container
+      block content
+    include footer
+    #fb-root
+    if 'production' == process.env.NODE_ENV
+      include ga
+    include scripts

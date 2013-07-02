@@ -1,0 +1,633 @@
+@import '/less/reset';
+@import '/less/bootstrap';
+@import '/fontawesome/font-awesome';
+
+/* mixins, variables, etc. */
+
+@maroon: #8a002d;
+@firebrick: #800517;
+@redLighter: #D23137;
+@redDarker: #6C0000;
+@hearty: #cc0033;
+@grayer: #555555;
+@grayLight: #999999;
+@grayLighter: #eeeeee;
+@grayMediumLight: #eaeaea;
+@lavender: #e3e4fa;
+@yellowLighter: #FAFAD2;
+@orangeDark: #F87217;
+@whiteSmoke: #F5F5F5;
+@snow: #FFFAFA;
+@blueLighter: #e3f0fc;
+@pink: #fff5e8;
+@artBarColor: #800000;
+@designBarColor: #800080;
+@programmingBarColor: #000080;
+@audioBarColor: #ff6600;
+@managementBarColor: #008080;
+@testingBarColor: #808000;
+
+
+.open_sans {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.box_sizing {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+}
+
+/* universal */
+
+html, body{
+  height: 100%
+}
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  .open_sans;
+  font-size: 13px;
+  background-color: white;
+}
+
+form {
+  padding: 20px;
+}
+
+a {
+  color: @redDarker;
+  &:hover {
+    color: @redLighter;
+  }
+}
+
+strong, b {
+  font-weight: bold;
+}
+
+img {
+	vertical-align: middle;
+  padding: 1px;
+}
+
+.btn, .btn-primary, .btn-primary.btn-large {
+  .box_sizing;
+  background-color: @redLighter;
+  background-image: none;
+  border: none;
+  color: white;
+  &:hover {
+    background-color: @redDarker;
+  }
+}
+
+.btn-large {
+  background-color: lighten(@redLighter, 10%);
+  text-shadow: none;
+  &:hover {
+    background-color: @redLighter;
+    color: white;
+  }
+}
+
+/* typography */
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+h2 {
+  font-size: 2em;
+  letter-spacing: -1px;
+  margin-top: 70px;
+  text-align: center;
+  font-weight: bold;
+  color: @grayLight;
+}
+
+h6 {
+  text-transform: none;
+  margin-top: 10px;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+
+label {
+  font-weight: bold;
+  .open_sans;
+}
+
+/* header */
+
+.navbar {
+  .navbar-inner {
+    background: @maroon;
+    border: none;
+    .box_sizing;
+    form {
+      padding: 15px;
+      margin: 0;
+    }
+    #user-nav {
+      color: white;
+      a {
+        text-decoration: none;
+        color: white;
+        &:hover {
+          color: @redDarker;
+        }
+      }
+    }
+  }
+}
+
+#logo {
+  float: left;
+  font-size: 1.7em;
+  color: white;
+  letter-spacing: -1px;
+  padding-top: 10px;
+  &:hover {
+    color: @redLighter;
+    text-decoration: none;
+  }
+  img {
+    width: 33px;
+    height: 30px;
+  }
+  span {
+    color: white;
+  }
+  #igda {
+    font-size: 1.3em;
+  }
+  #slash {
+    color: red;
+  }
+  #manila {
+    font-weight: bold;
+    letter-spacing: 0.1em;
+  }
+}
+
+.sub-navbar {
+  .container {
+    .nav {
+      li {
+        a {
+          line-height: 3em;
+          color: gray;
+          &:hover {
+            color: white;
+            background-color: darken(@firebrick, 10%);
+          }
+        }
+      }
+      .active {
+        a {
+          color: white;
+          background-color: @firebrick;
+        }
+      }
+    }
+  }
+}
+
+/* body */
+
+.row-fluid {
+	min-height: 600px;
+  // padding: 20px;
+  .box_sizing;
+}
+
+/* aside section */
+
+aside {
+  section {
+    padding: 10px 0;
+    border-top: 1px solid @grayLighter;
+    &:first-child {
+      border: 0;
+      padding-top: 0;
+    }
+    span {
+      display: block;
+      margin-bottom: 3px;
+    }
+    h1 {
+      font-size: 2.5em;
+      text-align: left;
+      letter-spacing: -1px;
+      margin-bottom: 3px;
+    }
+    h2 {
+      text-align: center;
+      color: @grayer;
+      margin-bottom: 10px;
+    }
+    h3 {
+      font-size: 1em;
+      margin-bottom: 5px;
+    }
+    h4 {
+      padding-top: 10px;
+    }
+    div {
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+/* forms */
+
+input[type="text"], input[type="password"], textarea {
+  border: 1px solid #bbb;
+  width: 100%;
+  height: auto;
+  .box_sizing;
+  margin-bottom: 0;
+}
+
+input[type="submit"] {
+  margin: 1px;
+}
+
+span {
+  color: @grayLight;
+}
+
+textarea {
+  height: 10em;
+}
+
+.form-inline {
+  background-color: @pink;
+  input[type="text"], label {
+    .box_sizing; 
+    height: 2em;
+    width: 20%;
+    margin-right: 20px;
+  }
+}
+
+.form-actions {
+  text-align: right;
+}
+
+.radio, .checkbox {
+  font-weight: normal;
+}
+
+/* footer */
+
+.footer-container {
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid @grayLight;
+  color: white;
+  background: @maroon;
+  .container {
+    height: 200px;
+    position: relative;
+    small { 
+      float: left; 
+    }
+    ul {
+      list-style: none;
+      li {
+        float: left;
+        margin-right: 10px;
+      }
+    } 
+    span {
+      bottom: 0;
+      position: absolute;
+      width: 940px;
+      text-align: center;
+      padding-bottom: 10px;
+    }
+    #about {
+      font-size: 25px;
+      padding-top: 15px;
+    }
+  }
+}
+
+/* jobs index, user index, game index */
+
+.jobs, .users, .games {
+  list-style: none;
+  margin: 0;
+  .colab {
+    width: 50%;
+  }
+  .game-link, .user-link, .edit-link {
+    display: inline;
+  }
+  .edit-link {
+    color: darken(red, 20%);
+  }
+  .user-preview div {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  li {
+    overflow: auto;
+    padding: 10px;
+    border-top: 1px solid @grayLighter;
+    &:last-child {
+      border-bottom: 1px solid @grayLighter;
+    }
+    &:hover {
+      background-color: @blueLighter;
+    }
+    a {
+      display: block;
+      color: @grayer;
+      &:hover{
+        text-decoration: none;
+      }
+      .left {
+        width: 40%;
+        div {
+          span {
+            width: 50%;
+            b, em {
+              word-wrap: break-word;
+            }
+          }
+        }
+        span {
+          float: left;
+        }
+        em {
+          font-size: 0.9em;
+        }
+        .level {
+          width: 10%;
+        }
+      }
+      .center {
+        width: 40%;
+        text-align: justify;
+        line-height: 3em;
+      }
+    }
+    span, .vote-btn {
+      display: inline;
+      color: gray;
+      margin-right: 10px;
+      padding-left: 10px;
+      img {
+        height: 48px;
+        width: 48px;
+      }
+      &.jobtitle {
+        text-decoration: underline;
+      }
+      &.date {
+        float: right;
+      }
+    }
+    .location {
+      font-weight: bold;
+    }
+    .votes {
+      float: right;
+      width: 5%;
+      span, .vote-btn, .heart-color {
+        color: @hearty; 
+        float: left;
+      }
+      .up-btn {
+        color: gray;
+      }
+      .red-btn {     
+        color: @hearty;
+      }
+    }
+  }
+}
+
+.users {
+  .border-dash {
+    background: url('/images/border-dash.jpg') repeat-x;
+    height: 1px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+  }
+  li {
+    border-top: none;
+  }
+}
+
+/* job show */
+
+.job-header {
+  border-bottom: 1px solid @grayLight;
+  padding-bottom: 10px;
+}
+
+.job-apply {
+  padding: 20px;
+  background-color: @whiteSmoke;
+  border: 1px solid @grayLight;
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  .box_sizing;
+  h2 {
+    color: @grayer;
+    text-align: left;
+    letter-spacing: -1px;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+}
+
+/* user show */
+
+.left-profile {
+  overflow: auto !important;
+  img {
+    float: left;
+    width: 200px;
+    height: 200px;
+    margin-right: 30px;
+    margin-bottom: 30px;
+  }
+  div {
+    font-size: 2em;
+    line-height: 1.5em;
+    i {
+      font-size: 0.5em;
+      vertical-align: text-top;
+    }
+    .icon-globe {
+      vertical-align: middle;
+    }
+  }
+}
+
+.user-extra {
+  label {
+    display: inline;
+    padding-right: 0;
+  }
+}
+
+.game-list {
+  div {
+    float: left;
+    width: 150px;
+    margin-right: 20px;
+    img {
+      height: 150px;
+      width: 150px;
+    } 
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  .more {
+    width: 100%;
+    padding-top: 20px;
+    float: right;
+  }
+}
+
+.upvotes {
+  margin-top: 0px; 
+  img {
+    height: 30px;
+  }
+}
+
+/* sharing tools */
+
+.share-tools ul {
+  margin: 0;
+  padding: 0;
+  li {
+    list-style-type: none;
+    a {
+      display: block;
+      padding: 15px 0 15px 60px;
+      color: @grayLight;
+      font-weight: bold;
+      &#mail {
+      background: url('/images/mail_icon.png') 15px 10px no-repeat;
+      }
+      &#twitter {
+        background: url('/images/twitter_icon.png') 15px 10px no-repeat;
+      }
+      &#facebook {
+        background: url('/images/facebook_icon.png') 15px 10px no-repeat;
+      }
+      &#gplus {
+        background: url('/images/gplus_icon.png') 15px 10px no-repeat;
+      }
+    }
+  }
+}
+
+/* chart */
+
+.chartContainer {
+  height: 270px;
+  .chart {
+    .bar-container {
+      width: 100%;
+      .label {
+        text-transform: none;
+        font-weight: normal;
+        color: black;
+        background: none;
+        float: left;
+        width: 150px;
+      }
+      .voters {
+        float: right;
+        width: 10%;
+        img {
+          height: 18px;
+        }
+      }
+      .bar-color {
+        color: #ccc; 
+        font-size: 10px;
+        text-align: right;
+        margin: 1px;
+        padding-right: 5px;
+        border-left: solid 2px #ccc;
+        position: relative;
+        float: left;
+      }
+    }
+
+    .art {
+      .bar-color {
+        background: @artBarColor;
+      }
+    }
+
+    .design {
+      .bar-color {
+        background: @designBarColor;
+      }
+    }
+
+    .programming {
+      .bar-color {
+        background: @programmingBarColor;
+      }
+    }
+
+    .audio {
+      .bar-color {
+        background: @audioBarColor;
+      }
+    }
+
+    .management {
+      .bar-color {
+        background: @managementBarColor;
+      }
+    }
+
+    .testingandsupport {
+      .bar-color {
+        background: @testingBarColor;
+      }
+    }
+  }
+}

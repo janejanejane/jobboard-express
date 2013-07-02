@@ -1,0 +1,18 @@
+header.navbar.navbar-static-top
+  .navbar-inner
+    .container
+      a#logo(href='/')
+        img(src='/images/igda-manila.png')
+        span#igda igda
+        span#slash  / 
+        span#manila MANILA
+      form.form-search.navbar-search.pull-right
+        #user-nav
+          a(href='/auth/twitter')
+            img(src='/images/twitter-login.png')
+          a(href='/auth/facebook').facebook-login#signin
+            img(src='/images/facebook-login.png')
+  .sub-navbar
+    .container
+      ul.nav
+        block tab-header

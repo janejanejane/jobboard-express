@@ -1,0 +1,56 @@
+mixin hiddenForm(name, value)
+  input(type='hidden', name=name, value='#{value}')
+
+extends ../layouts/layout
+
+block tab-header
+  li
+    a(href='/jobs') Job Posts
+  li
+    a(href='/users') Developers
+
+block content
+  form(method='POST', action='/jobs')
+    mixin hiddenForm('jobtitle', job.jobtitle)
+    mixin hiddenForm('category', job.category)
+    mixin hiddenForm('location', job.location)
+    mixin hiddenForm('description', job.description)
+    mixin hiddenForm('applydetails', job.applydetails)
+    mixin hiddenForm('companyname', job.companyname)
+    mixin hiddenForm('companywebsite', job.companywebsite)
+    mixin hiddenForm('confirmationemail', job.confirmationemail)
+    mixin hiddenForm('salary', job.salary)
+    mixin hiddenForm('minimum', job.minimum)
+    mixin hiddenForm('jobtype', job.jobtype)
+    .show-content
+      .row-fluid
+        aside.span9
+          section
+            .job-header
+              h1 #{job.jobtitle}
+              span Posted #{new Date().toDateString()}
+              h2 #{job.companyname}
+              span Location: #{job.location}
+              //- a(href='#{job.companywebsite}', target='_blank') #{job.companywebsite}
+              url = '/^https?/'.match(job.companywebsite) ? job.companywebsite : 'http://' + job.companywebsite;
+              a(href='#{url}', target='_blank') #{url}
+            .job-details
+              h3 PHP #{parseFloat(job.salary).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}
+                if '#{job.jobtype}' == 1
+                | (minimum)
+              h3 #{availabilitiesList[job.jobtype]}
+            .job-content #{job.description}
+        aside.span3
+          section
+            .share-tools
+              ul
+                li: a(href='#')#mail Tell a friend
+                li: a(href='#')#twitter Tweet this job
+                li: a(href='#')#facebook Share this job
+                li: a(href='#')#gplus +1 this job
+        .job-apply
+          h2 Apply for this position
+          #apply-details #{job.applydetails}
+    .form-actions
+      input(type='submit', value='Save job', name='save').btn.btn-large.btn-primary
+      input(type='button', value='Make changes', name='back', onclick='history.back()').btn.btn-large

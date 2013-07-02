@@ -1,0 +1,49 @@
+extends ../layouts/layout
+
+block tab-header
+  li
+    a(href='/jobs') Job Posts
+  li.active
+    a(href='/users') Developers
+
+block content
+  h1 Developer Profile
+  .row-fluid
+    div
+      .left-profile
+        img(src='http://dummyimage.com/800x600/4d494d/686a82.gif&text=placeholder+image" alt="placeholder+image')
+        div Jean Claudette Ambait
+        div
+          i.icon-quote-left
+          | Coder
+          i.icon-quote-right
+        div
+          i.icon-globe 
+          | Manila
+      .chartContainer
+    legend Games
+    .game-list
+      div
+        img(src='http://dummyimage.com/800x600/4d494d/686a82.gif&text=placeholder+image" alt="placeholder+image')
+        b My Game
+    .user-extra
+      legend Additional Information
+        //- label BEHANCE
+        //- label DEVIANTART
+        //- label KONGREGATE
+        //- label GAMASUTRA
+        //- label NEWGROUNDS
+        //- label GAMEJOLT
+
+block append scripts
+  script.
+    var data = [{name: "Art", points: 5, voters: ""},
+                {name: "Design", points: 0, voters: ""},
+                {name: "Programming", points: 20, preferred: true, voters: "<a href='/users/2' class='user-link'><img src='http://a0.twimg.com/profile_images/2999108220/3830a35a3fadb04417e8ced7b945982a.jpeg'></a>"},
+                {name: "Audio", points: 10, voters: ""},
+                {name: "Management", points: 0, voters: ""},
+                {name: "Testing and Support", points: 0, voters: ""}];
+    var total = 10;
+    console.log(data);
+
+  script(src='/javascripts/points_bar.js')

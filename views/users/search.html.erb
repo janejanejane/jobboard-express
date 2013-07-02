@@ -1,0 +1,38 @@
+<% provide(:title, 'Jobs Search') %>
+<h1>Developers Search</h1>
+
+<% content_for :tab_header do %>
+  <li><%= link_to "Job Posts", jobs_path %></li>
+  <li><%= link_to "Developers", users_path %></li>
+<% end %>
+
+<div class="row-fluid">
+
+	<%= render 'shared/user_search' %>
+	
+	<aside>
+		<section>
+			<div class="show-nav">
+				<p class="all-users"><%= link_to "&lsaquo;&lsaquo;".html_safe + " Back to all developers", users_path %></p>
+			</div>
+
+	  	<% if @user_search == 0 %>
+	    	<div class="search">
+		    	Sorry, your search <b>'<%= (@word == '') ? "[word]" : @word %>'</b> for developers who are <b>'<%= (@availability == '') ? "[availability]" : @availability %>'</b> within <b>'<%= (@location == '') ? "[location]" : @location %>'</b> returned <b>0</b> results.
+		    </div>
+	    <% else %>
+	    		<ul class="users">
+		    	<% 	jobpref = -1  
+		    		  if !CATEGORY.index(@word).nil? # gets the index of the string @word
+								jobpref = CATEGORY.index(@word)
+							end %>
+						<%= render 'shared/users', users: @grouped_user_results, jobpref: jobpref, limit: @grouped_user_results.length %>	
+					</ul>
+		    <% end %>
+		</section>
+	</aside>
+</div>
+
+<% content_for :javascripts do %>
+  <%= javascript_include_tag 'search' %>  
+<% end %>
