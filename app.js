@@ -13,9 +13,9 @@ var express = require('express')
 var app = express();
 
 if(app.get('env') == 'development'){
-  mongoose.connect('mongodb://igdaadmin:testpass@dharma.mongohq.com:10062/igda-dev');  
+  mongoose.connect(process.env.MONGOHQ_DEV);  
 }else{
-  mongoose.connect('mongodb://igdaadmin:testpass@dharma.mongohq.com:10053/igda-jobboard');
+  mongoose.connect(process.env.MONGOHQ_PROD);
 }
 
 // all environments

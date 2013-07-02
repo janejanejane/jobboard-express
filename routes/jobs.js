@@ -47,7 +47,7 @@ module.exports = {
         });
       }
     ],function(){
-        console.log("Result:", categories, "Length:", Object.keys(categories).length);
+        // console.log("Result:", categories, "Length:", Object.keys(categories).length);
         var indexParams = { 
           title: 'All Jobs', 
           categories: categories, 
