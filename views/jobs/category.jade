@@ -14,3 +14,14 @@ block content
     .span8
       aside
         section
+          each job in jobList
+            ul.jobs
+              li: a(href='/jobs/'+ job._id)
+                span.location #{job.location}
+                span.jobtitle #{job.jobtitle}
+                | at
+                span.company #{job.company_name}
+                span.date #{job.created_at.toDateString()}
+    .span4
+      aside
+        a(href='/jobs/new').btn.btn-large.btn-primary Add job now!

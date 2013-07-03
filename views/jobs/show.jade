@@ -7,6 +7,12 @@ block tab-header
     a(href='/users') Developers
 
 block content
+  .show-nav
+    p.all-jobs
+      a(href='/jobs') &lsaquo;&lsaquo; Back to all jobs
+    p.category-job
+      cat = categoriesList[job.category]
+        a(href='/jobs/category/'+ '#{cat}') See more #{cat} jobs &rsaquo;&rsaquo;
   .show-content
     .row-fluid
       aside.span9

@@ -7303,6 +7303,16 @@ footer .container #about {
   border-top: none;
 }
 /* job show */
+.show-nav {
+  overflow: hidden;
+  padding-top: 10px;
+}
+.show-nav .all-jobs {
+  float: left;
+}
+.show-nav .category-job {
+  float: right;
+}
 .job-header {
   border-bottom: 1px solid #999999;
   padding-bottom: 10px;

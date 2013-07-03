@@ -9,4 +9,5 @@
 /tmp
 
 # Ignore other unneeded files.
+/node_modules
 *.sh

@@ -23,12 +23,13 @@ block content
                     li: a(href='/jobs/'+ job._id) 
                       span.location #{job.location}
                       span.jobtitle #{job.jobtitle}
+                      | at
                       span.company #{job.company_name}
                       span.date #{job.created_at.toDateString()}
                   - counter++
               br
               if totalJobs > numberLimit
-                a(href='/jobs/'+ '#{categoriesList[i]}') View all #{totalJobs} jobs &rsaquo;&rsaquo;
+                a(href='/jobs/category/'+ '#{categoriesList[i]}') View all #{totalJobs} jobs &rsaquo;&rsaquo;
         else
           h2 No Job Posts. Add one now &rsaquo;&rsaquo;
     aside.span3

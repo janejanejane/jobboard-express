@@ -90,6 +90,7 @@ module.exports = {
     var showParams = { 
       title: req.job.jobtitle + ' Job', 
       job: req.job, 
+      categoriesList: constants.CATEGORY, 
       availabilitiesList: constants.AVAILABILITY, 
       facebookUri: process.env.FACEBOOK_URI,
       facebookKey: process.env.FACEBOOK_KEY, 
@@ -143,13 +144,31 @@ module.exports = {
   //   res.render('jobs/show', { title: 'Job'});
   // },
   category : function(req, res){
-
+    Job.find({ category: req.category }, function(err, docs){
+      // console.log("err", err, "docs", docs);
+      res.render('jobs/category', { jobList: docs });
+    });
   },
   _loadJob : function(req, res, next, id){
     Job.find({ _id: id }, function(err, docs){
-      req.job = docs[0];
-      next();
+      if(docs != null){
+        req.job = docs[0];
+        next(); 
+      }else{
+        next('route');
+      }
     });
+  },
+  _checkCategory : function(req, res, next, category){
+    var categoriesList = constants.CATEGORY;
+    var idx = categoriesList.indexOf(category);
+    if(idx != -1){
+      req.category = idx;
+      console.log("category", idx);
+      next();
+    }else{
+      next('route');
+    }
   }
 }
 
