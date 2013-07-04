@@ -35,7 +35,7 @@ block content
               url = '/^https?/'.match(job.companywebsite) ? job.companywebsite : 'http://' + job.companywebsite;
               a(href='#{url}', target='_blank') #{url}
             .job-details
-              h3 PHP #{parseFloat(job.salary).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}
+              h3 PHP #{parseFloat(job.salary).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')} 
                 if '#{job.jobtype}' == 1
                 | (minimum)
               h3 #{availabilitiesList[job.jobtype]}

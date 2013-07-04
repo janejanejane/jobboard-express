@@ -1,0 +1,19 @@
+extends ../layouts/layout
+
+block tab-header
+  li
+    a(href='/jobs') Job Posts
+  li
+    a(href='/users') Developers
+
+block content
+  h1 Job Post Success
+  .row-fluid
+    .span9
+      | Thank you for posting a job to IGDA Job Board.
+      br
+      | An email has been sent to your confirmation email: 
+      b #{confirmationEmail} 
+      | for the confirmation key.
+      br
+      | Please look into your Spam folder if the message does not appear in your Inbox.

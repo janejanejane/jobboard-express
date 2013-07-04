@@ -10,10 +10,10 @@ var JobSchema = new Schema({
   company_website: String,
   confirmation_email: String,
   salary: Number,
-  jobtype: String,
+  jobtype: Number,
   jobkey: String,
-  jobkey_confirmation: String,
-  isdeleted: Number,
+  jobkey_confirmation: { type: String, default: null },
+  isdeleted: { type: Number, default: 0 },
   category: Number,
   created_at: { type : Date, default: Date.now() },
   updated_at: Date

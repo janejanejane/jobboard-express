@@ -38,13 +38,15 @@ if ('development' == app.get('env')) {
 // routes
 
 //-- JOB
-// app.get('/', jobs.index);
-// app.get('/jobs', jobs.index);
+app.get('/', jobs.index);
+app.get('/jobs', jobs.index);
 app.get('/jobs/new', jobs.new);
 app.post('/jobs/new/preview', jobs.preview);
 app.post('/jobs', jobs.create);
 app.param('jobId', jobs._loadJob);
+app.get('/jobs/:jobId/confirm', jobs.confirm);
 app.get('/jobs/:jobId', jobs.show);
+// ^\/jobs\/:jobId\/confirm\?code=[a-zA-Z0-9]*$
 app.param('jobCategory', jobs._checkCategory);
 app.get('/jobs/category/:jobCategory', jobs.category);
 
@@ -55,8 +57,8 @@ app.post('/users', users.create);
 app.param('userId', users._loadUser);
 app.get('/users/:userId', users.show);
 
-//-- Home Page
-app.get('^\/|(jobs)$', jobs.index);
+// //-- Home Page
+// app.get(/\/|?(jobs)?/, jobs.index);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

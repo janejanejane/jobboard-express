@@ -10,10 +10,10 @@
     "jade": "*",
     "less-middleware": "*",
     "mongoose": "*",
-    "async": "~0.2.9"
+    "async": "~0.2.9",
+    "sendgrid": "~0.2.7"
   },
   "devDependencies": {
-    "nodemon": "*",
-    "express-mailer": "~0.2.0"
+    "nodemon": "*"
   }
 }

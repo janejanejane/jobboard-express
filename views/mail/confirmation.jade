@@ -1,0 +1,24 @@
+doctype 5
+html
+  head
+    meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+    body(style='background-color: #9D261D;')
+      table(width='100%', style='font-family: Tahoma, Arial, sans-serif; font-size: 12px; color: #000000;')
+        tr
+          td
+            table(border-collapse='collapse', width='600px', align='center', style='background-color: #fff; border: 1px solid #999; padding: 20px;')
+              tr
+                td(style='border-bottom: 1px solid #999;')
+                  h1(style='color=#08C;') Welcome to JobBoard @ IGDA!
+              tr
+                td(style='padding-top: 2.5em;')
+                  | You have successfully saved a job post 
+                  b #{job.jobpost} 
+                  | in JobBoard @ IGDA.
+              tr
+                td(style='padding-top: 0.5em;')
+                  | To confirm job post, click 
+                  a(href='#{job.url}/confirm?code=#{job.confirmKey}') here.
+              tr
+                td(style='padding-top: 0.5em;')
+                  | Thanks for posting a job and have a great day!
