@@ -5,10 +5,12 @@
 
 var express = require('express')
   , mongoose = require('mongoose')
+  , expressValidator = require('express-validator')
   , jobs = require('./routes/jobs')
   , users = require('./routes/users')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , flash = require('connect-flash');
 
 var app = express();
 
@@ -26,9 +28,15 @@ app.use(express.favicon());
 app.use(require('less-middleware')({ src: __dirname + '/public' }));
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
+app.use(expressValidator());
 app.use(express.methodOverride());
+app.use(express.cookieParser());  
+app.use(express.session({ secret: 'session-key'}));
+app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(app.router);
+
+
 
 // development only
 if ('development' == app.get('env')) {

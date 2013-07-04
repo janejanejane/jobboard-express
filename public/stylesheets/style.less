@@ -77,6 +77,12 @@ img {
   padding: 1px;
 }
 
+input[type="text"], textarea{
+  &.error {
+    border: 1px solid red;
+  }
+}
+
 .btn, .btn-primary, .btn-primary.btn-large {
   .box_sizing;
   background-color: @redLighter;

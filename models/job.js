@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
 
 var JobSchema = new Schema({
   jobtitle: String,
+  category: Number,
   location: String,
   description: String,
   apply_details: String,
@@ -11,10 +12,10 @@ var JobSchema = new Schema({
   confirmation_email: String,
   salary: Number,
   jobtype: Number,
+  minimum: { type: Boolean, default: false},
   jobkey: String,
   jobkey_confirmation: { type: String, default: null },
   isdeleted: { type: Number, default: 0 },
-  category: Number,
   created_at: { type : Date, default: Date.now() },
   updated_at: Date
 });

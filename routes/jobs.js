@@ -14,7 +14,7 @@ module.exports = {
     var queryFn = function(category, callback){
       Job.find({category: category, isdeleted: 0, jobkey_confirmation: {'$ne': null }}, function(err, res){
         if(res.length > 0) categories[category] = res;
-        console.log(res);
+        // console.log(res);
         return callback(err);
       });
     }
@@ -39,7 +39,7 @@ module.exports = {
         queryFn(5, callback);
       }
     ],function(){
-        console.log("Result:", categories, "Length:", Object.keys(categories).length);
+        // console.log("Result:", categories, "Length:", Object.keys(categories).length);
         var indexParams = { 
           title: 'All Jobs', 
           categories: categories, 
@@ -102,22 +102,46 @@ module.exports = {
       categoriesList: constants.CATEGORY, 
       availabilitiesList: constants.AVAILABILITY
     };
+    var flash = req.flash();
+    // console.log(flash);
+    newParams.errors = flash.errors ? flash.errors[0] : null;
+    newParams.job = flash.job ? flash.job[0] : null;
+    
     res.render('jobs/new', newParams);  
   },
-  preview : function(req, res){
-    var previewParams = { 
-      title: 'Add Job Preview', 
-      job: req.body, 
-      availabilitiesList: constants.AVAILABILITY 
-    }; 
-    res.render('jobs/preview', previewParams); 
+  preview : function(req, res){       
+    var b = req.body;
+    req.assert('jobtitle', 'required').notEmpty().len(5, 30);
+    req.assert('location', 'required').notEmpty().len(5, 100);
+    req.assert('description', 'required').notEmpty();
+    req.assert('applydetails', 'required').notEmpty();
+    req.assert('companyname', 'required').notEmpty().len(5, 50);
+    req.assert('companywebsite', 'required').notEmpty();
+    req.assert('confirmationemail', 'valid email required').isEmail();
+    req.assert('salary', 'required').isInt().min(1);
+
+    var errors = req.validationErrors(true); // true flags for mappedErrors
+
+    if(!errors){   
+      var previewParams = { 
+        title: 'Add Job Preview', 
+        job: b, 
+        availabilitiesList: constants.AVAILABILITY 
+      }; 
+      res.render('jobs/preview', previewParams); 
+    }else{
+      req.flash('errors', errors);
+      req.flash('job', b);
+      res.redirect('back');
+    }
   },
-  create : function(req, res){
+  create : function(req, res){    
     var b = req.body;
     var job = new Job();
     var createHash = require('crypto').randomBytes(20).toString('hex');
 
     job.jobtitle = b.jobtitle;
+    job.category = b.category;
     job.location = b.location;
     job.description = b.description;
     job.apply_details = b.applydetails;
@@ -128,7 +152,6 @@ module.exports = {
     job.salary = b.salary;
     job.jobtype = b.jobtype;
     job.minimum = b.minimum;
-    job.category = b.category;
 
     job.save(function(err, job){
       if(err) console.log(err);
@@ -137,8 +160,7 @@ module.exports = {
       req.jobId = job._id;
       mailman.confirmation(req, res);
       return;
-    });
-
+    }); 
     // res.render('jobs/show', { title: 'Job' });
   },
   // edit : function(req, res){
@@ -161,9 +183,9 @@ module.exports = {
     var id = req.job.id;
     var confirmKey = req.query.code;
     console.log('CONFIRMKEY: ', confirmKey, 'id', id);
-    if(confirmKey){
+    if(confirmKey && confirmKey != null){
       Job.findOne({ _id: id }, function(err, job){
-        console.log('err', err, 'job', job);
+        // console.log('err', err, 'job', job);
 
         if(err){
           console.log("Job not found: " + id);
@@ -192,23 +214,27 @@ module.exports = {
           //   console.log('affected rows %d', affected);
           //   res.render('jobs/success'); 
           // });
-          showParams.confirmMsg = 'Job confirmed successfully!';
+          showParams.successMsg = 'Job confirmed successfully!';
           res.render('jobs/show', showParams);
         }else{
-          showParams.duplicateMsg = 'Job already confirmed!';
-          console.log('Job already confirmed', showParams);
-          res.render('jobs/show', showParams);
+          if(job.jobkey === confirmKey){
+            showParams.infoMsg = 'Job already confirmed!';
+            console.log('Job already confirmed', showParams);
+            res.render('jobs/show', showParams); 
+          }else{
+            res.redirect('/jobs');
+          }
         }
-      });
-
-      
+      });      
+    }else{
+      res.redirect('/jobs');
     }
   },
   _loadJob : function(req, res, next, id){
     Job.find({ _id: id }, function(err, docs){
       if(docs != null){
         req.job = docs[0];
-        console.log('inside _loadJob!!!', id, docs);
+        // console.log('inside _loadJob!!!', id, docs);
         next(); 
       }else{
         next('route');

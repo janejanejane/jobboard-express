@@ -7,10 +7,10 @@ block tab-header
     a(href='/users') Developers
 
 block content
-  if(duplicateMsg) 
-    .alert.alert-info #{duplicateMsg}
-  if(confirmMsg) 
-    .alert.alert-success #{confirmMsg}
+  if(infoMsg) 
+    .alert.alert-info #{infoMsg}
+  if(successMsg) 
+    .alert.alert-success #{successMsg}
   .show-nav
     p.all-jobs
       a(href='/jobs') &lsaquo;&lsaquo; Back to all jobs

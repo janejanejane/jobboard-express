@@ -6864,6 +6864,10 @@ img {
   vertical-align: middle;
   padding: 1px;
 }
+input[type="text"].error,
+textarea.error {
+  border: 1px solid red;
+}
 .btn,
 .btn-primary,
 .btn-primary.btn-large {
