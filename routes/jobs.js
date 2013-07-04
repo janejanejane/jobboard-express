@@ -7,50 +7,39 @@ var Job = require('../models/job');
 var constants = require('../constants');
 var mailman = require('./mailer');
 
-var createHash = require('crypto').randomBytes(20).toString('hex');
-
 module.exports = {
   index : function(req, res){
     var categories = {};
+
+    var queryFn = function(category, callback){
+      Job.find({category: category, isdeleted: 0, jobkey_confirmation: {'$ne': null }}, function(err, res){
+        if(res.length > 0) categories[category] = res;
+        console.log(res);
+        return callback(err);
+      });
+    }
+
     async.parallel([
       function(callback){
-        Job.find({category: 0}, function(err, res){
-          categories[0] = res;
-          return callback(err);
-        });
+        queryFn(0, callback);
       },
       function(callback){
-        Job.find({category: 1}, function(err, res){
-          categories[1] = res;
-          return callback(err);
-        });
+        queryFn(1, callback);
       },
       function(callback){
-        Job.find({category: 2}, function(err, res){
-          categories[2] = res;
-          return callback(err);
-        });
+        queryFn(2, callback);
       },
       function(callback){
-        Job.find({category: 3}, function(err, res){
-          categories[3] = res;
-          return callback(err);
-        });
+        queryFn(3, callback);
       },
       function(callback){
-        Job.find({category: 4}, function(err, res){
-          categories[4] = res;
-          return callback(err);
-        });
+        queryFn(4, callback);
       },
       function(callback){
-        Job.find({category: 5}, function(err, res){
-          categories[5] = res;
-          return callback(err);
-        });
+        queryFn(5, callback);
       }
     ],function(){
-        // console.log("Result:", categories, "Length:", Object.keys(categories).length);
+        console.log("Result:", categories, "Length:", Object.keys(categories).length);
         var indexParams = { 
           title: 'All Jobs', 
           categories: categories, 
@@ -126,6 +115,8 @@ module.exports = {
   create : function(req, res){
     var b = req.body;
     var job = new Job();
+    var createHash = require('crypto').randomBytes(20).toString('hex');
+
     job.jobtitle = b.jobtitle;
     job.location = b.location;
     job.description = b.description;
@@ -159,7 +150,11 @@ module.exports = {
   category : function(req, res){
     Job.find({ category: req.category }, function(err, docs){
       // console.log("err", err, "docs", docs);
-      res.render('jobs/category', { jobList: docs });
+      var categoryParams = {
+        category: constants.CATEGORY[req.category],
+        jobList: docs
+      }
+      res.render('jobs/category', categoryParams);
     });
   },
   confirm : function(req, res, next){
@@ -175,6 +170,18 @@ module.exports = {
           res.render('jobs/error');
           return;
         }
+
+        var url = req.protocol + '://' + req.get('host');
+        var showParams = { 
+          title: req.job.jobtitle + ' Job', 
+          job: req.job, 
+          categoriesList: constants.CATEGORY, 
+          availabilitiesList: constants.AVAILABILITY, 
+          facebookUri: process.env.FACEBOOK_URI,
+          facebookKey: process.env.FACEBOOK_KEY, 
+          host: url, 
+          jobpath: url + req.path 
+        }
         
         if(job.jobkey_confirmation === null){
           job.jobkey_confirmation = confirmKey;
@@ -185,9 +192,12 @@ module.exports = {
           //   console.log('affected rows %d', affected);
           //   res.render('jobs/success'); 
           // });
-          res.render('jobs/show');
+          showParams.confirmMsg = 'Job confirmed successfully!';
+          res.render('jobs/show', showParams);
         }else{
-          console.log('Job already confirmed');
+          showParams.duplicateMsg = 'Job already confirmed!';
+          console.log('Job already confirmed', showParams);
+          res.render('jobs/show', showParams);
         }
       });
 

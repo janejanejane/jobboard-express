@@ -7,21 +7,24 @@ block tab-header
     a(href='/users') Developers
 
 block content
-  h1 All Jobs
+  h1 #{category} Jobs
   .show-nav
     p: a(href='/jobs') &lsaquo;&lsaquo; Back to all jobs
   .row-fluid
     .span8
       aside
         section
-          each job in jobList
-            ul.jobs
-              li: a(href='/jobs/'+ job._id)
-                span.location #{job.location}
-                span.jobtitle #{job.jobtitle}
-                | at
-                span.company #{job.company_name}
-                span.date #{job.created_at.toDateString()}
+          if(Object.keys(jobList).length > 0)
+            each job in jobList
+              ul.jobs
+                li: a(href='/jobs/'+ job._id)
+                  span.location #{job.location}
+                  span.jobtitle #{job.jobtitle}
+                  | at
+                  span.company #{job.company_name}
+                  span.date #{job.created_at.toDateString()}
+          else
+            h2 No Job Posts. Add one now &rsaquo;&rsaquo;
     .span4
       aside
         a(href='/jobs/new').btn.btn-large.btn-primary Add job now!
