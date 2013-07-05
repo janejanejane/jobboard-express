@@ -170,7 +170,7 @@ module.exports = {
   //   res.render('jobs/show', { title: 'Job'});
   // },
   category : function(req, res){
-    Job.find({ category: req.category }, function(err, docs){
+    Job.find({ category: req.category, jobkey_confirmation: {'$ne': null } }, function(err, docs){
       // console.log("err", err, "docs", docs);
       var categoryParams = {
         category: constants.CATEGORY[req.category],
